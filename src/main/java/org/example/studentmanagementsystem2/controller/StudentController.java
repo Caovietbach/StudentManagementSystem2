@@ -30,7 +30,7 @@ public class StudentController {
         List<Student> listStudents = service.listAll();
         model.addAttribute("listStudents", listStudents);
 
-        return "index"; // assuming index.html is in src/main/resources/templates
+        return "index";
     }
 
     @RequestMapping("/addStudent")
