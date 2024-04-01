@@ -6,6 +6,7 @@ import org.example.studentmanagementsystem2.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,8 +33,10 @@ public class StudentService {
         repo.deleteById(id);
     }
 
-
-
+    public List<Student> searchName(String name) {
+        List<Student> searchResult = repo.findByNameContainingIgnoreCase(name);
+        return searchResult;
+    }
     public String validateNewInformation(Student student){
         String err = null;
         if(student.getName() == ""){
@@ -55,11 +58,11 @@ public class StudentService {
 
     public String validateEditInformation(Student student){
         String err = null;
-        if(student.getName() == ""){
+        if(student.getName().equals("")){
             err = "Student must have a name";
             System.out.println("1");
         }
-        if(student.getEmail() == ""){
+        if(student.getEmail().equals("")){
             err = "Student must have an email address";
             System.out.println("2");
         }
