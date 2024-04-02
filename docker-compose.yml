@@ -1,10 +1,21 @@
-version: '3.7'
-
+version: '3'
 services:
   mysql:
-    image: custom-mysql
-    restart: always
+    image: mysql-database
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydatabase
     volumes:
-      - ./data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql
+  spring-app:
+    image: student-management-system-2:lastest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydatabase
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
